@@ -30,100 +30,101 @@ class LoginScreen extends StatelessWidget {
             // É um observador que vai indicar as mudanças
             // UserManager é o objeto que estamos observando
             child: Consumer<UserManager>(
-              //os childs são uma forma de eu não rebildar todo o meu código, ex coisas que são constantes
-              //útil quando for um widget muito grande.
-              builder: (_, userManager, __){
-                return ListView(
-              //para o list view usar o mínimo de espaço
-              shrinkWrap: true,
-              //distancia das bordas e o campo de texto
-              padding: const EdgeInsets.all(16),
-              children: <Widget>[
-                TextFormField(
-                  controller: emailControler,
-                  enabled: !userManager.loading,
-                  decoration: const InputDecoration(hintText: 'E-mail'),
-                  keyboardType: TextInputType.emailAddress,
-                  autocorrect: false,
-                  validator: (email) {
-                    if (!emailValid(email)) return 'E-mail inválido';
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                TextFormField(
-                  controller: passControler,
-                  enabled: !userManager.loading,
-                  decoration: const InputDecoration(hintText: 'Senha'),
-                  autocorrect: false,
-                  obscureText: true,
-                  validator: (pass) {
-                    if (pass.isEmpty || pass.length < 6)
-                      return 'Senha Inválida';
-                    return null;
-                  },
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: FlatButton(
-                      onPressed: () {},
-                      padding: EdgeInsets.zero,
-                      child: const Text('Esqueci minha senha')),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                //O Sisedbox é apenas para definir a altura
-                SizedBox(
-                  height: 44,
-                  child: RaisedButton(
-                    onPressed: userManager.loading ? null : () {
-                      //validando as informações ao pressionar o botão entrar
-                      if (formKey.currentState.validate()) {
-                        // Ao usar o Consumer<UserManager> temos acesso direto e não precisamos mais usar o
-                        // context.read<UserManager>()
-                        userManager.singIn(
-                              user: User(
-                                email: emailControler.text,
-                                password: passControler.text,
-                              ),
-                              onFail: (e) {
-                                // print(e);
-                                scafoldKey.currentState.showSnackBar(
-                                  SnackBar(
-                                    content: Text('Falha ao entrar: $e'),
-                                    backgroundColor: Colors.red,
-                                  )
-                                );
-                              },
-                              onSuccess: () {
-                                // TODO: FECHAR A TELA DE LOGIN
-                                print('Sucesso');
-                              },
-                            );
-                      }
+                //os childs são uma forma de eu não rebildar todo o meu código, ex coisas que são constantes
+                //útil quando for um widget muito grande.
+                builder: (_, userManager, __) {
+              return ListView(
+                //para o list view usar o mínimo de espaço
+                shrinkWrap: true,
+                //distancia das bordas e o campo de texto
+                padding: const EdgeInsets.all(16),
+                children: <Widget>[
+                  TextFormField(
+                    controller: emailControler,
+                    enabled: !userManager.loading,
+                    decoration: const InputDecoration(hintText: 'E-mail'),
+                    keyboardType: TextInputType.emailAddress,
+                    autocorrect: false,
+                    validator: (email) {
+                      if (!emailValid(email)) return 'E-mail inválido';
+                      return null;
                     },
-                    color: Theme.of(context).primaryColor,
-                    disabledColor: Theme.of(context).primaryColor.withAlpha(100),
-                    textColor: Colors.white,
-                    child: userManager.loading ? CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
-                    ) :
-                     Text(
-                      'Entrar',
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  TextFormField(
+                    controller: passControler,
+                    enabled: !userManager.loading,
+                    decoration: const InputDecoration(hintText: 'Senha'),
+                    autocorrect: false,
+                    obscureText: true,
+                    validator: (pass) {
+                      if (pass.isEmpty || pass.length < 6)
+                        return 'Senha Inválida';
+                      return null;
+                    },
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: FlatButton(
+                        onPressed: () {},
+                        padding: EdgeInsets.zero,
+                        child: const Text('Esqueci minha senha')),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  //O Sisedbox é apenas para definir a altura
+                  SizedBox(
+                    height: 44,
+                    child: RaisedButton(
+                      onPressed: userManager.loading
+                          ? null
+                          : () {
+                              //validando as informações ao pressionar o botão entrar
+                              if (formKey.currentState.validate()) {
+                                // Ao usar o Consumer<UserManager> temos acesso direto e não precisamos mais usar o
+                                // context.read<UserManager>()
+                                userManager.singIn(
+                                  user: User(
+                                    email: emailControler.text,
+                                    password: passControler.text,
+                                  ),
+                                  onFail: (e) {
+                                    // print(e);
+                                    scafoldKey.currentState
+                                        .showSnackBar(SnackBar(
+                                      content: Text('Falha ao entrar: $e'),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  },
+                                  onSuccess: () {
+                                    // TODO: FECHAR A TELA DE LOGIN
+                                    print('Sucesso');
+                                  },
+                                );
+                              }
+                            },
+                      color: Theme.of(context).primaryColor,
+                      disabledColor:
+                          Theme.of(context).primaryColor.withAlpha(100),
+                      textColor: Colors.white,
+                      child: userManager.loading
+                          ? CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                            )
+                          : Text(
+                              'Entrar',
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
                     ),
                   ),
-                ),
-              ],
-          
-            );
-          }
-        ),
+                ],
+              );
+            }),
           ),
         ),
       ),
