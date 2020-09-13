@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "20356292125",
+    "firebase_url": "https://loja-virtual-supermercado.firebaseio.com",
+    "project_id": "loja-virtual-supermercado",
+    "storage_bucket": "loja-virtual-supermercado.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20356292125:android:0cdc388c3eff57975a30f4",
+        "android_client_info": {
+          "package_name": "br.com.bonfim.supermercado_virtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20356292125-fs8vuoo1jmo4lvlmhgbndrihc3v52ojk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.bonfim.supermercado_virtual",
+            "certificate_hash": "e098e03e033abe6cdbd418c61672b0d033aa9853"
+          }
+        },
+        {
+          "client_id": "20356292125-b455lpuoe9vbcu3stlptof0r2n6u5cju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn7P_wNYoEQvcxYSsG06ByN_-FT6ZVwoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20356292125-b455lpuoe9vbcu3stlptof0r2n6u5cju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
