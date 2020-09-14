@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supermercado_virtual/models/user_manager.dart';
 import 'package:supermercado_virtual/screens/base/base_screen.dart';
+import 'package:supermercado_virtual/screens/singup/singup_screen.dart';
 
 void main() async {
   runApp(MyApp());
@@ -33,7 +34,20 @@ class MyApp extends StatelessWidget {
           ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: BaseScreen(),
+        initialRoute: '/base',
+        onGenerateRoute: (settings){
+         switch(settings.name){
+           case '/singup':
+            return MaterialPageRoute(
+             builder: (_) => BaseScreen()
+            );
+            case '/base':
+           default:
+             return MaterialPageRoute(
+               builder: (_) => BaseScreen()
+             );
+         } 
+        }
       ),
     );
   }
