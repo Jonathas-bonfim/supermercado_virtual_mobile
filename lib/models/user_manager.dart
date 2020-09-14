@@ -7,7 +7,14 @@ import 'package:supermercado_virtual/models/user.dart';
 //o extends ChanderNotifier é mudar o estado dos widgets  de acordo com o estado do loading
 //lembrando que é necessário alterar o provider para ChangeNotifierProvider no main
 class UserManager extends ChangeNotifier {
+  UserManager() {
+    _loadCurrentUser();
+  }
+
   final FirebaseAuth auth = FirebaseAuth.instance;
+
+  FirebaseUser user;
+
   bool _loading = false;
   bool get loading => _loading;
 
@@ -18,6 +25,8 @@ class UserManager extends ChangeNotifier {
         email: user.email,
         password: user.password,
       );
+      //obtendo o usuário logado
+      this.user = result.user;
 
       // print(result.user.uid);
       onSuccess();
@@ -33,7 +42,12 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _loadCurrentUser() async{
-    FirebaseUser currentUser = await auth.currentUser();
+  Future<void> _loadCurrentUser() async {
+    final FirebaseUser currentUser = await auth.currentUser();
+    if (currentUser != null) {
+      user = currentUser;
+      print(user.uid);
+    }
+    notifyListeners();
   }
 }
