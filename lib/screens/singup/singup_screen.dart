@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:supermercado_virtual/helpers/validators.dart';
+import 'package:supermercado_virtual/models/user.dart';
 
 class SingUpScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final User user = User();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,7 @@ class SingUpScreen extends StatelessWidget {
                     else if (name.trim().split(' ').length <= 1)
                       return "Preencha seu nome completo";
                   },
+                  onSaved: (name) => user.name = name,
                 ),
                 const SizedBox(
                   height: 16,
@@ -43,6 +47,7 @@ class SingUpScreen extends StatelessWidget {
                     else if (!emailValid(email)) return 'E-mail inválido';
                     return null;
                   },
+                  onSaved: (email) => user.email = email,
                 ),
                 const SizedBox(
                   height: 16,
@@ -55,6 +60,7 @@ class SingUpScreen extends StatelessWidget {
                       return "Campo Obrigatório";
                     else if (pass.length < 6) return "Senha muito Curta";
                   },
+                  onSaved: (pass) => user.password = pass,
                 ),
                 const SizedBox(
                   height: 16,
@@ -67,6 +73,7 @@ class SingUpScreen extends StatelessWidget {
                       return "Campo Obrigatório";
                     else if (pass.length < 6) return "Senha muito Curta";
                   },
+                  onSaved: (pass) => user.confirmPassword = pass,
                 ),
                 const SizedBox(
                   height: 16,
@@ -79,7 +86,7 @@ class SingUpScreen extends StatelessWidget {
                         Theme.of(context).primaryColor.withAlpha(100),
                     textColor: Colors.white,
                     onPressed: () {
-                      formKey.currentState.validate();
+                      if (formKey.currentState.validate()) {}
                     },
                     child: const Text(
                       'Criar Conta',
