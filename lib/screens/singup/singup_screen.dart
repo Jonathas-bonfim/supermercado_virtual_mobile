@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:supermercado_virtual/helpers/validators.dart';
 
 class SingUpScreen extends StatelessWidget {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,50 +11,89 @@ class SingUpScreen extends StatelessWidget {
         title: const Text('Criar Conta'),
         centerTitle: true,
       ),
-    body: Center(
+      body: Center(
         child: Card(
           margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: ListView(
-            padding: const EdgeInsets.all(16),
-            shrinkWrap: true,
-            children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(hintText: 'Nome Completo'),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(hintText: 'E-mail'),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(hintText: 'Senha'),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(hintText: 'Repita a senha'),
-              ),
-              const SizedBox(
-                height: 16,),
-              SizedBox(
-                height: 44,
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  disabledColor: Theme.of(context).primaryColor.withAlpha(100),
-                  textColor: Colors.white,
-                  onPressed: () {},
-                  child: const Text('Criar Conta'),
+          child: Form(
+            key: formKey,
+            child: ListView(
+              padding: const EdgeInsets.all(16),
+              shrinkWrap: true,
+              children: <Widget>[
+                TextFormField(
+                  decoration: const InputDecoration(hintText: 'Nome Completo'),
+                  validator: (name) {
+                    if (name.isEmpty)
+                      return "Campo Obrigatório";
+                    //trim apaga os espaços no início e no final, split quebra o texto fazendo uma lista onde são gerados a partir do caractere definido no split (espaço no caso)
+                    else if (name.trim().split(' ').length <= 1)
+                      return "Preencha seu nome completo";
+                  },
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(hintText: 'E-mail'),
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  validator: (email) {
+                    if (email.isEmpty)
+                      return 'Campo Obrigatório';
+                    else if (!emailValid(email)) return 'E-mail inválido';
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(hintText: 'Senha'),
+                  obscureText: true,
+                  validator: (pass) {
+                    if (pass.isEmpty)
+                      return "Campo Obrigatório";
+                    else if (pass.length < 6) return "Senha muito Curta";
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(hintText: 'Repita a senha'),
+                  obscureText: true,
+                  validator: (pass) {
+                    if (pass.isEmpty)
+                      return "Campo Obrigatório";
+                    else if (pass.length < 6) return "Senha muito Curta";
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                SizedBox(
+                  height: 44,
+                  child: RaisedButton(
+                    color: Theme.of(context).primaryColor,
+                    disabledColor:
+                        Theme.of(context).primaryColor.withAlpha(100),
+                    textColor: Colors.white,
+                    onPressed: () {
+                      formKey.currentState.validate();
+                    },
+                    child: const Text(
+                      'Criar Conta',
+                      style: TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),  
+      ),
     );
   }
 }

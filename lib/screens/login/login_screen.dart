@@ -9,7 +9,7 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController emailControler = TextEditingController();
   final TextEditingController passControler = TextEditingController();
 
-  // definindo minha variável global
+  // definindo A variável global para autenticar as validações
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> scafoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -21,12 +21,13 @@ class LoginScreen extends StatelessWidget {
         centerTitle: true,
         actions: <Widget>[
           FlatButton(
-            onPressed: (){
+            onPressed: () {
               Navigator.of(context).pushReplacementNamed('/singup');
             },
             textColor: Colors.white,
-            child: const Text('Criar Conta',
-            style: TextStyle(fontSize: 14),
+            child: const Text(
+              'Criar Conta',
+              style: TextStyle(fontSize: 14),
             ),
           ),
         ],
