@@ -1,8 +1,9 @@
-class User{
+class User {
+  User({this.email, this.password, this.name});
 
-  User({this.email, this.password});
-
+  String name;
   String email;
   String password;
 
+  String confirmPassword;
 }
