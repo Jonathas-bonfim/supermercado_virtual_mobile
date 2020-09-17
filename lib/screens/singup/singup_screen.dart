@@ -93,30 +93,25 @@ class SingUpScreen extends StatelessWidget {
                       if (formKey.currentState.validate()) {
                         formKey.currentState.save();
 
-                        if(user.password != user.confirmPassword){
-                          scafoldKey.currentState.showSnackBar(
-                            SnackBar(
-                              content: const Text('Senhas não coincidem!'),
-                              backgroundColor: Colors.red,
-                            )
-                          );
+                        if (user.password != user.confirmPassword) {
+                          scafoldKey.currentState.showSnackBar(SnackBar(
+                            content: const Text('Senhas não coincidem!'),
+                            backgroundColor: Colors.red,
+                          ));
                           return;
                         }
                         context.read<UserManager>().singUp(
-                          user: user,
-                          onSuccess: (){
-                            debugPrint('Sucesso');
-                            // TODO POP
-                          },
-                          onFail: (e){
-                          scafoldKey.currentState.showSnackBar(
-                            SnackBar(
-                              content: Text('Falha ao cadastrar: $e'),
-                              backgroundColor: Colors.red,
-                            )
-                          );
-                          }
-                        );
+                            user: user,
+                            onSuccess: () {
+                              debugPrint('Sucesso');
+                              // TODO POP
+                            },
+                            onFail: (e) {
+                              scafoldKey.currentState.showSnackBar(SnackBar(
+                                content: Text('Falha ao cadastrar: $e'),
+                                backgroundColor: Colors.red,
+                              ));
+                            });
                       }
                     },
                     child: const Text(

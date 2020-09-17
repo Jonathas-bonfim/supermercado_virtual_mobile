@@ -26,7 +26,6 @@ class UserManager extends ChangeNotifier {
         password: user.password,
       );
       //obtendo o usuário logado
-      this.user = result.user;
 
       // print(result.user.uid);
       onSuccess();
@@ -44,9 +43,11 @@ class UserManager extends ChangeNotifier {
       final AuthResult result = await auth.createUserWithEmailAndPassword(
           email: user.email, password: user.password);
 
-      this.user = result.user;
+      user.id = result.user.uid;
+
+      await user.saveData();
+
       onSuccess();
-      
     } on PlatformException catch (e) {
       onFail(getErrorString(e.code));
     }
