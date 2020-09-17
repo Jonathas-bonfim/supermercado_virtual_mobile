@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:supermercado_virtual/helpers/validators.dart';
 import 'package:supermercado_virtual/models/user.dart';
+import 'package:provider/provider.dart';
+import 'package:supermercado_virtual/models/user_manager.dart';
 
 class SingUpScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> scafoldKey = GlobalKey<ScaffoldState>();
 
   final User user = User();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scafoldKey,
       appBar: AppBar(
         title: const Text('Criar Conta'),
         centerTitle: true,
@@ -86,7 +90,34 @@ class SingUpScreen extends StatelessWidget {
                         Theme.of(context).primaryColor.withAlpha(100),
                     textColor: Colors.white,
                     onPressed: () {
-                      if (formKey.currentState.validate()) {}
+                      if (formKey.currentState.validate()) {
+                        formKey.currentState.save();
+
+                        if(user.password != user.confirmPassword){
+                          scafoldKey.currentState.showSnackBar(
+                            SnackBar(
+                              content: const Text('Senhas não coincidem!'),
+                              backgroundColor: Colors.red,
+                            )
+                          );
+                          return;
+                        }
+                        context.read<UserManager>().singUp(
+                          user: user,
+                          onSuccess: (){
+                            debugPrint('Sucesso');
+                            // TODO POP
+                          },
+                          onFail: (e){
+                          scafoldKey.currentState.showSnackBar(
+                            SnackBar(
+                              content: Text('Falha ao cadastrar: $e'),
+                              backgroundColor: Colors.red,
+                            )
+                          );
+                          }
+                        );
+                      }
                     },
                     child: const Text(
                       'Criar Conta',

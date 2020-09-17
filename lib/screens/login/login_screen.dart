@@ -11,6 +11,7 @@ class LoginScreen extends StatelessWidget {
 
   // definindo A variável global para autenticar as validações
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  //usado para inserir a notificação do snackbar
   final GlobalKey<ScaffoldState> scafoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
