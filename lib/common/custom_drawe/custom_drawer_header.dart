@@ -13,12 +13,33 @@ class CustomDrawerHeader extends StatelessWidget {
           builder: (_, userManager, __) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Text(
                   'Mercado Virtual',
                   style: TextStyle(
                     fontSize: 34,
                     fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Olá, ${userManager.user?.name ?? ''}',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Text(
+                    userManager.isLoggedIn ? 'Sair' : 'Entre ou cadastre-se >',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],

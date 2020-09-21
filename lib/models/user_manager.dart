@@ -22,6 +22,8 @@ class UserManager extends ChangeNotifier {
   bool _loading = false;
   bool get loading => _loading;
 
+  bool get isLoggedIn => user != null;
+
   Future<void> singIn({User user, Function onFail, Function onSuccess}) async {
     loading = true;
     try {
