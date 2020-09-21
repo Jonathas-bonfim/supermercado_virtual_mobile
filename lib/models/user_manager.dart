@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +13,11 @@ class UserManager extends ChangeNotifier {
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-
-  FirebaseUser user;
+  final Firestore firestore = Firestore.instance;
+  // Com o firebase user só temos o Email e ID
+  // FirebaseUser user;
+  // Com o usuário temos tudoooooo
+  User user;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -25,7 +29,8 @@ class UserManager extends ChangeNotifier {
         email: user.email,
         password: user.password,
       );
-      //obtendo o usuário logado
+
+      await _loadCurrentUser(firebaseUser: result.user);
 
       // print(result.user.uid);
       onSuccess();
@@ -44,7 +49,8 @@ class UserManager extends ChangeNotifier {
           email: user.email, password: user.password);
 
       user.id = result.user.uid;
-
+      //colocando o usuário no abjeto geral da página
+      this.user = user;
       await user.saveData();
 
       onSuccess();
@@ -59,12 +65,19 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _loadCurrentUser() async {
-    final FirebaseUser currentUser = await auth.currentUser();
+  // carregando os dados do usuário que está logado e passando para o objeto user
+  Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async {
+    // Quando criar o usuário entrar com ele e não ficar com o usuário atual, caso nenhum
+    // usuário seja criado, ficar com o usuário atual no firebase (Aula 27, 5 minutos)
+    final FirebaseUser currentUser = firebaseUser ?? await auth.currentUser();
     if (currentUser != null) {
-      user = currentUser;
-      print(user.uid);
+      // user = currentUser;
+      // print(user.uid);
+
+      final DocumentSnapshot docUser =
+          await firestore.collection('users').document(currentUser.uid).get();
+      user = User.fromDocument(docUser);
+      notifyListeners();
     }
-    notifyListeners();
   }
 }
