@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supermercado_virtual/models/user_manager.dart';
 import 'package:supermercado_virtual/screens/base/base_screen.dart';
+import 'package:supermercado_virtual/screens/login/login_screen.dart';
 import 'package:supermercado_virtual/screens/singup/singup_screen.dart';
 
 void main() async {
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
     //provider para poder acessar o user manager em todo o app
     return ChangeNotifierProvider(
       create: (_) => UserManager(),
+      // para instanciar o usuário e buscar as informações
+      lazy: false,
       child: MaterialApp(
           title: 'Mercado Virtual',
           theme: ThemeData(
@@ -38,9 +41,12 @@ class MyApp extends StatelessWidget {
             switch (settings.name) {
               case '/singup':
                 return MaterialPageRoute(builder: (_) => SingUpScreen());
+                case '/login':
+                return MaterialPageRoute(builder: (_) => LoginScreen());
               case '/base':
               default:
                 return MaterialPageRoute(builder: (_) => BaseScreen());
+              
             }
           }),
     );
