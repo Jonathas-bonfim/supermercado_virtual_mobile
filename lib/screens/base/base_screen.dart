@@ -4,6 +4,7 @@ import 'package:supermercado_virtual/common/custom_drawe/custom_drawer.dart';
 import 'package:supermercado_virtual/common/custom_drawe/custom_drawer_header.dart';
 import 'package:supermercado_virtual/models/page_manager.dart';
 import 'package:supermercado_virtual/screens/login/login_screen.dart';
+import 'package:supermercado_virtual/screens/products/products_screen.dart';
 
 class BaseScreen extends StatelessWidget {
   final PageController pageController = PageController();
@@ -22,12 +23,7 @@ class BaseScreen extends StatelessWidget {
               title: const Text('Home'),
             ),
           ),
-          Scaffold(
-            drawer: CustomDrawer(),
-            appBar: AppBar(
-              title: const Text('Home 2'),
-            ),
-          ),
+          ProductsScreen(),
           Scaffold(
             drawer: CustomDrawer(),
             appBar: AppBar(
