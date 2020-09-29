@@ -15,21 +15,41 @@ class ProductsScreen extends StatelessWidget {
         title: const Text('Produtos'),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                showDialog(context: context, builder: (_) => SearchDialog());
-              }),
+          Consumer<ProductManager>(
+            builder: (_, productManager, __) {
+              if (productManager.search.isEmpty) {
+                return IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () async {
+                    final search = await showDialog<String>(
+                        context: context, builder: (_) => SearchDialog());
+
+                    if (search != null) {
+                      context.read<ProductManager>().search = search;
+                    }
+                  },
+                );
+              } else {
+                return IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () async {
+                    context.read<ProductManager>().search = '';
+                  },
+                );
+              }
+            },
+          )
         ],
       ),
       // item builder para ir carregando os itens de acordo com o que for rolando a tela
       body: Consumer<ProductManager>(
-        builder: (_, productManage, __) {
+        builder: (_, productManager, __) {
+          final filteredProducts = productManager.filteredProducts;
           return ListView.builder(
               padding: const EdgeInsets.all(4),
-              itemCount: productManage.allProducts.length,
+              itemCount: filteredProducts.length,
               itemBuilder: (_, index) {
-                return ProductListTitle(productManage.allProducts[index]);
+                return ProductListTitle(productManager.filteredProducts[index]);
                 // Acessando a lista de produtos e atualizando em tepmo real (consumer)
               });
         },
