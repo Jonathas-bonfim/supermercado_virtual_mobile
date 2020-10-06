@@ -9,9 +9,10 @@ class Product {
     // o firebase retorna uma lista dinamica e eu preciso de uma lista de string
     images = List<String>.from(document.data['images'] as List<dynamic>);
     // Aula 37
-    sizes = (document.data['size'] as List<dynamic>)
-        .map((s) => ItemSize.fromMap(s as Map<String, dynamic>))
-        .toList();
+    sizes = (document.data['sizes'] as List<dynamic> ?? []).map(
+            (s) => ItemSize.fromMap(s as Map<String, dynamic>)).toList();
+
+    print(sizes);
   }
 
   String id;
