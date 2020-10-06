@@ -1,6 +1,5 @@
 class ItemSize {
-  // construtor para passar os dados no product.dart
-  ItemSize.fromMap(Map<String, dynamic> map){
+  ItemSize.fromMap(Map<String, dynamic> map) {
     name = map['name'] as String;
     price = map['price'] as num;
     stock = map['stock'] as int;
@@ -16,7 +15,4 @@ class ItemSize {
   String toString() {
     return 'ItemSize{name: $name, price: $price, stock: $stock}';
   }
-} 
-
-
- 
+}

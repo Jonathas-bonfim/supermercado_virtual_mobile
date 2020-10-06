@@ -29,8 +29,8 @@ class SizeWidget extends StatelessWidget {
             child: Text(
               'R\$ ${size.price.toStringAsFixed(2)}',
               style: TextStyle(
-                color: !size.hasStock ? Colors.red.withAlpha(50) : Colors.grey
-              ),
+                  color:
+                      !size.hasStock ? Colors.red.withAlpha(50) : Colors.grey),
             ),
           )
         ],
