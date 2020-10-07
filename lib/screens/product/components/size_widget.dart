@@ -11,6 +11,7 @@ class SizeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // acesso ao produto selecionado
+    // O context.watch rebilda toda a tela do produto já o consumer só a hierarquia selecionada
     final product = context.watch<Product>();
     // tamanho selecionado
     final selected = size == product.selectedSize;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supermercado_virtual/models/product.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:supermercado_virtual/models/user_manager.dart';
 import 'package:supermercado_virtual/screens/product/components/size_widget.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -40,7 +41,7 @@ class ProductScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(16),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
                     product.name,
@@ -67,7 +68,8 @@ class ProductScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
                       'Descrição',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
                   Text(
@@ -78,7 +80,8 @@ class ProductScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
                       'Tamanhos',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
                   Wrap(
@@ -87,7 +90,38 @@ class ProductScreen extends StatelessWidget {
                     children: product.sizes.map((s) {
                       return SizeWidget(size: s);
                     }).toList(),
-                  )
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  // consumer2 para aprovar 2 providers
+                  if (product.hasStock)
+                    Consumer2<UserManager, Product>(
+                      builder: (_, userManager, product, __) {
+                        return SizedBox(
+                          height: 40,
+                          child: RaisedButton(
+                            onPressed: product.selectedSize != null
+                                ? () {
+                                    if (userManager.isLoggedIn) {
+                                      // TODO: ADICIONAR AO CARRINHO
+                                    } else {
+                                      Navigator.of(context).pushNamed('/login');
+                                    }
+                                  }
+                                : null,
+                            color: primaryColor,
+                            textColor: Colors.white,
+                            child: Text(
+                              userManager.isLoggedIn
+                                  ? 'Adicionar ao Carrinho'
+                                  : 'Entre Para Comprar',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        );
+                      },
+                    )
                 ],
               ),
             )
