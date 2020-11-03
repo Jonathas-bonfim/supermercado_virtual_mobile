@@ -7,21 +7,15 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-
       // Lista de opções
       child: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  const Color.fromARGB(255, 203, 236, 241),
-                  Colors.white,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter
-                ) 
-              ),
+                gradient: LinearGradient(colors: [
+              const Color.fromARGB(255, 203, 236, 241),
+              Colors.white,
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           ),
           ListView(
             children: <Widget>[
