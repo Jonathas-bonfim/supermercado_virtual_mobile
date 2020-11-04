@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supermercado_virtual/models/cart_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:supermercado_virtual/models/cart_product.dart';
+import 'package:supermercado_virtual/screens/cart/components/cart_tile.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -12,7 +14,9 @@ class CartScreen extends StatelessWidget {
       ),
       body: Consumer<CartManager>(builder: (_, cartManager, __) {
         return Column(
-          children: <Widget>[],
+          children: cartManager.items
+              .map((cartProduct) => CartTile(cartProduct))
+              .toList(),
         );
       }),
     );
