@@ -40,4 +40,13 @@ class Product extends ChangeNotifier {
   bool get hasStock {
     return totalStock > 0;
   }
+
+  ItemSize findSize(String name) {
+    // caso o tamanho do item não exista mais, ou seja, o dono não vende mais P
+    try {
+      return sizes.firstWhere((s) => s.name == name);
+    } catch (e) {
+      return null;
+    }
+  }
 }
