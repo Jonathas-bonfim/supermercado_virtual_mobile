@@ -5,7 +5,6 @@ import 'package:supermercado_virtual/models/product.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:supermercado_virtual/models/user_manager.dart';
 import 'package:supermercado_virtual/screens/product/components/size_widget.dart';
-import 'package:provider/provider.dart';
 
 class ProductScreen extends StatelessWidget {
   ProductScreen(this.product);
@@ -109,7 +108,7 @@ class ProductScreen extends StatelessWidget {
                                       context
                                           .read<CartManager>()
                                           .addToCart(product);
-                                      Navigator.of(context).pushNamed('cart');
+                                      Navigator.of(context).pushNamed('/cart');
                                     } else {
                                       Navigator.of(context).pushNamed('/login');
                                     }
