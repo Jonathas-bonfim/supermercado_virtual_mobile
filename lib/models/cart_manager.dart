@@ -10,7 +10,7 @@ class CartManager {
   List<CartProduct> items = [];
 
   User user;
-
+  // update no main para atualizar o usuário e o carrinho
   void updateUser(UserManager userManager) {
     user = userManager.user;
     items.clear();
@@ -29,6 +29,10 @@ class CartManager {
 
   void addToCart(Product product) {
     // transformando o produto em um produto que pode ser adicionado ao carrinho
-    items.add(CartProduct.fromProduct(product));
+    final cartProduct = CartProduct.fromProduct(product);
+
+    items.add(cartProduct);
+    // adicionando os produtos no carrinho
+    user.cartReference.add(cartProduct.toCartItemMap());
   }
 }

@@ -43,4 +43,12 @@ class CartProduct {
     // Caso o itemSize seja nulo para não retornar null na tela
     return itemSize?.price ?? 0;
   }
+
+  Map<String, dynamic> toCartItemMap() {
+    return {
+      'pid': productId,
+      'quantity': quantity,
+      'size': size,
+    };
+  }
 }

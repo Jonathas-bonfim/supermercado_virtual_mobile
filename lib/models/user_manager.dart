@@ -51,7 +51,7 @@ class UserManager extends ChangeNotifier {
           email: user.email, password: user.password);
 
       user.id = result.user.uid;
-      //colocando o usuário no abjeto geral da página
+      //colocando o usuário no objeto geral da página
       this.user = user;
       await user.saveData();
 

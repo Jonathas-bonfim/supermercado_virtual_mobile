@@ -11,9 +11,6 @@ import 'package:supermercado_virtual/screens/login/login_screen.dart';
 import 'package:supermercado_virtual/screens/product/product_screen.dart';
 import 'package:supermercado_virtual/screens/singup/singup_screen.dart';
 
-import 'models/cart_manager.dart';
-import 'models/user_manager.dart';
-
 void main() async {
   runApp(MyApp());
 
@@ -44,13 +41,12 @@ class MyApp extends StatelessWidget {
           create: (_) => CartManager(),
           lazy: false,
         ),
-        // Informar ao CartManager que houve uma mudança no usermanager
+        // Sempre que houver uma Atualização no UserManager ele vai atualizar o CartManager
         ProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
-          // injetando o userManager dentro do CartManager
           update: (_, userManager, cartManager) =>
-              // sempre que o user magener for modificado avisar o cartManager
+              // inserindo o userManager no cartManager
               cartManager..updateUser(userManager),
         ),
       ],
