@@ -28,11 +28,18 @@ class CartManager {
   }
 
   void addToCart(Product product) {
-    // transformando o produto em um produto que pode ser adicionado ao carrinho
-    final cartProduct = CartProduct.fromProduct(product);
+    try {
+      // averiguando se possui itens iguais para somar na quantidade
+      // função stackable no cart_product.dart
+      final e = items.firstWhere((p) => p.stackable(product));
+      e.quantity++;
+    } catch (e) {
+      // transformando o produto em um produto que pode ser adicionado ao carrinho
+      final cartProduct = CartProduct.fromProduct(product);
 
-    items.add(cartProduct);
-    // adicionando os produtos no carrinho
-    user.cartReference.add(cartProduct.toCartItemMap());
+      items.add(cartProduct);
+      // adicionando os produtos no carrinho
+      user.cartReference.add(cartProduct.toCartItemMap());
+    }
   }
 }

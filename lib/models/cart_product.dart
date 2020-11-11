@@ -51,4 +51,9 @@ class CartProduct {
       'size': size,
     };
   }
+
+  // função para ver se os itens podem ser empilhados
+  bool stackable(Product product) {
+    return product.id == productId && product.selectedSize.name == size;
+  }
 }

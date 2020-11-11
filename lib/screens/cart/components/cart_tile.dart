@@ -51,6 +51,13 @@ class CartTile extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            Column(
+              children: <Widget>[
+                Text(
+                  '${cartProduct.quantity}',
+                ),
+              ],
             )
           ],
         ),
