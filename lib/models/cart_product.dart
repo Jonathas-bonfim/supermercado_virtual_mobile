@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:supermercado_virtual/models/item_size.dart';
 
 import 'product.dart';
 
-class CartProduct {
+class CartProduct extends ChangeNotifier {
   // Construtor que pega o produto e transforma em um produto no carrinho
   CartProduct.fromProduct(this.product) {
     productId = product.id;
@@ -59,9 +60,11 @@ class CartProduct {
 
   void increment() {
     quantity++;
+    notifyListeners();
   }
 
   void decrement() {
     quantity--;
+    notifyListeners();
   }
 }

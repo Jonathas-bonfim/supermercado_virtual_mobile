@@ -24,7 +24,10 @@ class CartManager {
     final QuerySnapshot cartSnap = await user.cartReference.getDocuments();
 
     // carregando os itens
-    items = cartSnap.documents.map((d) => CartProduct.fromDocument(d)).toList();
+    // para chamar a função mesmo sem adicionar um item
+    items = cartSnap.documents
+        .map((d) => CartProduct.fromDocument(d)..addListener(_onItemUpdated))
+        .toList();
   }
 
   void addToCart(Product product) {
@@ -36,10 +39,13 @@ class CartManager {
     } catch (e) {
       // transformando o produto em um produto que pode ser adicionado ao carrinho
       final cartProduct = CartProduct.fromProduct(product);
-
+      // é proveniente do chandnotifier, toda vez que chamar o notifyListeners ele vai executar a função dentro do addListener
+      cartProduct.addListener(_onItemUpdated);
       items.add(cartProduct);
       // adicionando os produtos no carrinho
       user.cartReference.add(cartProduct.toCartItemMap());
     }
   }
+
+  void _onItemUpdated() {}
 }
