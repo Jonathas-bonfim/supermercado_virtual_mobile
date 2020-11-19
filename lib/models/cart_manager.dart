@@ -77,4 +77,11 @@ class CartManager extends ChangeNotifier {
     cartProduct.removeListener(_onItemUpdated);
     notifyListeners();
   }
+
+  bool get isCartValid {
+    for (final cartProduct in items) {
+      if (!cartProduct.hasStock) return false;
+    }
+    return true;
+  }
 }
