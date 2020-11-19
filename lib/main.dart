@@ -37,12 +37,8 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductManager(),
           lazy: false,
         ),
-        Provider(
-          create: (_) => CartManager(),
-          lazy: false,
-        ),
         // Sempre que houver uma Atualização no UserManager ele vai atualizar o CartManager
-        ProxyProvider<UserManager, CartManager>(
+        ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
           update: (_, userManager, cartManager) =>
