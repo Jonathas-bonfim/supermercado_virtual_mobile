@@ -48,6 +48,7 @@ class CartProduct extends ChangeNotifier {
     return itemSize?.price ?? 0;
   }
 
+  // preço total do carrinho
   num get totalPrice => unitPrice * quantity;
 
   Map<String, dynamic> toCartItemMap() {

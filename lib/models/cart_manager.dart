@@ -11,6 +11,8 @@ class CartManager extends ChangeNotifier {
   List<CartProduct> items = [];
 
   User user;
+
+  num productsPrice = 0.00;
   // update no main para atualizar o usuário e o carrinho
   void updateUser(UserManager userManager) {
     user = userManager.user;
@@ -47,23 +49,35 @@ class CartManager extends ChangeNotifier {
       user.cartReference
           .add(cartProduct.toCartItemMap())
           .then((doc) => cartProduct.id = doc.documentID);
+      // para atualizar o valor total dos produtos no totalizador do carrinho
+      _onItemUpdated();
     }
     notifyListeners();
   }
 
   void _onItemUpdated() {
-    for (final cartProduct in items) {
+    productsPrice = 0.00;
+
+    // for (final cartProduct in items)
+    for (int i = 0; i < items.length; i++) {
+      final cartProduct = items[i];
       if (cartProduct.quantity == 0) {
         removeOfCart(cartProduct);
+        i--;
+        // quando chegar no continue ele volta para o início
+        // pois após remover o produto não precisa atualizar o carrinho
+        continue;
       }
+      productsPrice += cartProduct.totalPrice;
       _updateCartProduct(cartProduct);
     }
   }
 
   void _updateCartProduct(CartProduct cartProduct) {
-    user.cartReference
-        .document(cartProduct.id)
-        .updateData(cartProduct.toCartItemMap());
+    if (cartProduct.id != null)
+      user.cartReference
+          .document(cartProduct.id)
+          .updateData(cartProduct.toCartItemMap());
   }
 
   void removeOfCart(CartProduct cartProduct) {
