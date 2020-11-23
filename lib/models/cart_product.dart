@@ -19,10 +19,11 @@ class CartProduct extends ChangeNotifier {
     size = document.data['size'] as String;
 
     // buscando o produto
-    firestore
-        .document('products/$productId')
-        .get()
-        .then((doc) => product = Product.fromDocument(doc));
+    firestore.document('products/$productId').get().then((doc) {
+      product = Product.fromDocument(doc);
+      // para calcular o valor total do carrinho na primeira vez que abrir
+      notifyListeners();
+    });
   }
 
   final Firestore firestore = Firestore.instance;

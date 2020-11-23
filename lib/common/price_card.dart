@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:supermercado_virtual/models/cart_manager.dart';
 
 class PriceCard extends StatelessWidget {
   const PriceCard({this.buttonText, this.onPressed});
@@ -7,6 +9,10 @@ class PriceCard extends StatelessWidget {
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
+    // Watch é para rebildar todo o widget
+    final cartManager = context.watch<CartManager>();
+    final productsPrice = cartManager.productsPrice;
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Padding(
@@ -31,7 +37,7 @@ class PriceCard extends StatelessWidget {
               children: <Widget>[
                 const Text('Valor dos produtos'),
                 Text(
-                  'R\$ 19.99',
+                  'R\$ ${productsPrice.toStringAsFixed(2)}',
                 ),
               ],
             ),
@@ -47,7 +53,7 @@ class PriceCard extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  'R\$ 19,99',
+                  'R\$ ${productsPrice.toStringAsFixed(2)}',
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 16,
@@ -60,6 +66,7 @@ class PriceCard extends StatelessWidget {
             ),
             RaisedButton(
               color: Theme.of(context).primaryColor,
+              disabledColor: Theme.of(context).primaryColor.withAlpha(100),
               textColor: Colors.white,
               onPressed: onPressed,
               child: Text(buttonText),

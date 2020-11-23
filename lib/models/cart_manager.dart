@@ -71,6 +71,7 @@ class CartManager extends ChangeNotifier {
       productsPrice += cartProduct.totalPrice;
       _updateCartProduct(cartProduct);
     }
+    notifyListeners();
   }
 
   void _updateCartProduct(CartProduct cartProduct) {
