@@ -16,6 +16,6 @@ class Section {
 
   @override
   String toString() {
-    return 'Section{name: $name, type: $type, items: $items }';
+    return 'Section{name: $name, type: $type, items: $items}';
   }
 }

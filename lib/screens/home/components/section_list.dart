@@ -11,6 +11,7 @@ class SectionList extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SectionHeader(section),
         ],
