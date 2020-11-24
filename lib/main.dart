@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supermercado_virtual/models/cart_manager.dart';
+import 'package:supermercado_virtual/models/home_manager.dart';
 import 'package:supermercado_virtual/models/product.dart';
 import 'package:supermercado_virtual/models/product_manager.dart';
 import 'package:supermercado_virtual/models/user_manager.dart';
@@ -37,6 +38,10 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductManager(),
           lazy: false,
         ),
+        Provider(
+          create: (_) => HomeManager(),
+          lazy: false,
+        ),
         // Sempre que houver uma Atualização no UserManager ele vai atualizar o CartManager
         ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
@@ -48,6 +53,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           title: 'Mercado Virtual',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             // cor principal do aplicativo
             primaryColor: const Color.fromARGB(255, 4, 125, 141),

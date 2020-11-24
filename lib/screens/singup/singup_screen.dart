@@ -32,13 +32,14 @@ class SingUpScreen extends StatelessWidget {
                     TextFormField(
                       decoration:
                           const InputDecoration(hintText: 'Nome Completo'),
-                          enabled: !userManager.loading,
+                      enabled: !userManager.loading,
                       validator: (name) {
                         if (name.isEmpty)
                           return "Campo Obrigatório";
                         //trim apaga os espaços no início e no final, split quebra o texto fazendo uma lista onde são gerados a partir do caractere definido no split (espaço no caso)
                         else if (name.trim().split(' ').length <= 1)
                           return "Preencha seu nome completo";
+                        return null;
                       },
                       onSaved: (name) => user.name = name,
                     ),
@@ -69,6 +70,7 @@ class SingUpScreen extends StatelessWidget {
                         if (pass.isEmpty)
                           return "Campo Obrigatório";
                         else if (pass.length < 6) return "Senha muito Curta";
+                        return null;
                       },
                       onSaved: (pass) => user.password = pass,
                     ),
@@ -78,12 +80,13 @@ class SingUpScreen extends StatelessWidget {
                     TextFormField(
                       decoration:
                           const InputDecoration(hintText: 'Repita a senha'),
-                          enabled: !userManager.loading,
+                      enabled: !userManager.loading,
                       obscureText: true,
                       validator: (pass) {
                         if (pass.isEmpty)
                           return "Campo Obrigatório";
                         else if (pass.length < 6) return "Senha muito Curta";
+                        return null;
                       },
                       onSaved: (pass) => user.confirmPassword = pass,
                     ),
@@ -97,41 +100,49 @@ class SingUpScreen extends StatelessWidget {
                         disabledColor:
                             Theme.of(context).primaryColor.withAlpha(100),
                         textColor: Colors.white,
-                        onPressed: userManager.loading ? null : () {
-                          if (formKey.currentState.validate()) {
-                            formKey.currentState.save();
+                        onPressed: userManager.loading
+                            ? null
+                            : () {
+                                if (formKey.currentState.validate()) {
+                                  formKey.currentState.save();
 
-                            if (user.password != user.confirmPassword) {
-                              scafoldKey.currentState.showSnackBar(SnackBar(
-                                content: const Text('Senhas não coincidem!'),
-                                backgroundColor: Colors.red,
-                              ));
-                              return;
-                            }
-                            // context.read<UserManager>().singUp(
-                            userManager.singUp(
-                                user: user,
-                                onSuccess: () {
-                                  debugPrint('Sucesso');
-                                  Navigator.of(context).pop();
-                                },
-                                onFail: (e) {
-                                  scafoldKey.currentState.showSnackBar(SnackBar(
-                                    content: Text('Falha ao cadastrar: $e'),
-                                    backgroundColor: Colors.red,
-                                  ));
-                                });
-                          }
-                        },
-                        child: userManager.loading ? CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                        )
-                       : const Text(
-                          'Criar Conta',
-                          style: TextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
+                                  if (user.password != user.confirmPassword) {
+                                    scafoldKey.currentState
+                                        .showSnackBar(SnackBar(
+                                      content:
+                                          const Text('Senhas não coincidem!'),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                    return;
+                                  }
+                                  // context.read<UserManager>().singUp(
+                                  userManager.singUp(
+                                      user: user,
+                                      onSuccess: () {
+                                        debugPrint('Sucesso');
+                                        Navigator.of(context).pop();
+                                      },
+                                      onFail: (e) {
+                                        scafoldKey.currentState
+                                            .showSnackBar(SnackBar(
+                                          content:
+                                              Text('Falha ao cadastrar: $e'),
+                                          backgroundColor: Colors.red,
+                                        ));
+                                      });
+                                }
+                              },
+                        child: userManager.loading
+                            ? CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
+                              )
+                            : const Text(
+                                'Criar Conta',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
                       ),
                     )
                   ],
