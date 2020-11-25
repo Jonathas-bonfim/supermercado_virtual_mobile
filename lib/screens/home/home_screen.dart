@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                 return SliverList(
                   delegate: SliverChildListDelegate(children),
                 );
-              })
+              }),
             ],
           ),
         ],
