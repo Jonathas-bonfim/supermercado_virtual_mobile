@@ -15,7 +15,7 @@ class SectionList extends StatelessWidget {
         children: <Widget>[
           SectionHeader(section),
           SizedBox(
-            height: 150,
+            height: 100,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               // contex (não utilizado) e o index
