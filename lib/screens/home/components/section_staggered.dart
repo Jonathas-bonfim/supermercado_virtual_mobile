@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:supermercado_virtual/models/section.dart';
+import 'package:supermercado_virtual/screens/home/components/item_tile.dart';
 import 'package:supermercado_virtual/screens/home/components/section_header.dart';
 
 class SectionStaggered extends StatelessWidget {
@@ -23,10 +24,8 @@ class SectionStaggered extends StatelessWidget {
             crossAxisCount: 4,
             itemCount: section.items.length,
             itemBuilder: (_, index) {
-              return Image.network(
-                section.items[index].image,
-                // para ocupar todo o espaço disponível por item, o espaçamento máximo é 8
-                fit: BoxFit.cover,
+              return ItemTile(
+                section.items[index],
               );
             },
             staggeredTileBuilder: (index) =>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supermercado_virtual/models/section.dart';
+import 'package:supermercado_virtual/screens/home/components/item_tile.dart';
 import 'package:supermercado_virtual/screens/home/components/section_header.dart';
 
 class SectionList extends StatelessWidget {
@@ -21,13 +22,7 @@ class SectionList extends StatelessWidget {
               // contex (não utilizado) e o index
               itemBuilder: (_, index) {
                 // AspectRatio força a imagem a ficar quadrada
-                return AspectRatio(
-                    aspectRatio: 1,
-                    child: Image.network(
-                      section.items[index].image,
-                      // para a imagem ocupar o máximo de espaço possível
-                      fit: BoxFit.cover,
-                    ));
+                return ItemTile(section.items[index]);
               },
               separatorBuilder: (_, __) => const SizedBox(
                 width: 4,

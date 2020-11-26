@@ -43,4 +43,13 @@ class ProductManager extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  // Procurando o ID do produto que seja igual o ID da foto na página inicial >função da tela ITEM TILE
+  Product finProductByID(String id) {
+    try {
+      return allProducts.firstWhere((p) => p.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
 }

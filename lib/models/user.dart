@@ -16,6 +16,8 @@ class User {
 
   String confirmPassword;
 
+  bool admin;
+
   DocumentReference get firestoreRef =>
       Firestore.instance.document('users/$id');
 
