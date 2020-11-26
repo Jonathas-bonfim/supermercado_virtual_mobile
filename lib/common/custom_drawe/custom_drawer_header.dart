@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:supermercado_virtual/models/page_manager.dart';
 import 'package:supermercado_virtual/models/user_manager.dart';
 
 class CustomDrawerHeader extends StatelessWidget {
@@ -34,6 +35,8 @@ class CustomDrawerHeader extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     if (userManager.isLoggedIn) {
+                      // context.read<PageManager>().setPage(0);
+                      Navigator.of(context).popAndPushNamed('/login');
                       userManager.singOut();
                     } else {
                       Navigator.of(context).popAndPushNamed('/login');

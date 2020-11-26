@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:supermercado_virtual/common/custom_drawe/drawer_tile.dart';
+import 'package:supermercado_virtual/models/user_manager.dart';
 import 'custom_drawer_header.dart';
 
 // package:supermercado_virtual
@@ -41,6 +43,27 @@ class CustomDrawer extends StatelessWidget {
                 title: 'Lojas',
                 page: 3,
               ),
+              Consumer<UserManager>(builder: (_, userManager, __) {
+                if (userManager.adminEnabled) {
+                  return Column(
+                    children: [
+                      Divider(),
+                      DrawerTile(
+                        iconData: Icons.settings,
+                        title: 'Usuários',
+                        page: 4,
+                      ),
+                      DrawerTile(
+                        iconData: Icons.settings,
+                        title: 'Pedidos',
+                        page: 5,
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              })
             ],
           ),
         ],
