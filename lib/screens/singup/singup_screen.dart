@@ -119,7 +119,7 @@ class SingUpScreen extends StatelessWidget {
                                   userManager.singUp(
                                       user: user,
                                       onSuccess: () {
-                                        debugPrint('Sucesso');
+                                        // debugPrint('Sucesso');
                                         Navigator.of(context).pop();
                                       },
                                       onFail: (e) {
