@@ -76,6 +76,7 @@ class ProductScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
+                    // TODO TROCAR PARA VALOR REAL
                     'R\$ 19.99',
                     style: TextStyle(
                         fontSize: 22.0,

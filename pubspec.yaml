@@ -42,6 +42,8 @@ dependencies:
   faker: ^1.2.1
   # Imagem da galeria
   image_picker: ^0.6.7
+  # Editando a imagem antes de adicionar
+  image_cropper: ^1.2.2
 
 dev_dependencies:
   flutter_test:
