@@ -93,21 +93,23 @@ class CartTile extends StatelessWidget {
                             : Colors.red,
                         onTap: cartProduct.decrement,
                       ),
-                      Stack(
+                      Row(
                         children: [
-                          // IMAGEoi
-
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: IconButton(
-                              icon: Icon(Icons.close),
-                              color: Colors.red,
-                              iconSize: 15,
-                              onPressed: () {},
-                            ),
-                          )
+                          Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: IconButton(
+                                  icon: Icon(Icons.delete),
+                                  color: Colors.red,
+                                  iconSize: 15,
+                                  onPressed: () {},
+                                ),
+                              )
+                            ],
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   );
                 }),

@@ -3,15 +3,16 @@ import 'package:supermercado_virtual/models/product.dart';
 
 import 'components/images_form.dart';
 
+GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
 class EditProductSreen extends StatelessWidget {
   // passando o produto por parâmetro para conseguir editar o próprio
   EditProductSreen(this.product);
   final Product product;
 
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Editando produto'),
@@ -48,6 +49,33 @@ class EditProductSreen extends StatelessWidget {
                         fontSize: 13,
                       ),
                     ),
+                  ),
+                  Text(
+                    'R\$ ...',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: primaryColor,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Text(
+                      'Descrição',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  TextFormField(
+                    initialValue: product.description,
+                    style: const TextStyle(fontSize: 16),
+                    decoration: const InputDecoration(
+                        hintText: 'Descrição', border: InputBorder.none),
+                    maxLines: null,
+                    validator: (desc) {
+                      if (desc.length < 10) return 'Descrição muito curta';
+                      return null;
+                    },
                   ),
                   RaisedButton(
                     onPressed: () {
