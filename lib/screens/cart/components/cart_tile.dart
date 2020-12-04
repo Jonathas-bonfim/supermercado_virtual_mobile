@@ -75,23 +75,27 @@ class CartTile extends StatelessWidget {
                 ),
                 // consumer é a parte onde eu vou rebildar caso haja alcuma alteração
                 Consumer<CartProduct>(builder: (_, cartProduct, __) {
-                  return Column(
-                    children: <Widget>[
-                      CustomIconButton(
-                        iconData: Icons.add,
-                        color: Theme.of(context).primaryColor,
-                        onTap: cartProduct.increment,
-                      ),
-                      Text(
-                        '${cartProduct.quantity}',
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      CustomIconButton(
-                        iconData: Icons.remove,
-                        color: cartProduct.quantity > 1
-                            ? Theme.of(context).primaryColor
-                            : Colors.red,
-                        onTap: cartProduct.decrement,
+                  return Row(
+                    children: [
+                      Column(
+                        children: <Widget>[
+                          CustomIconButton(
+                            iconData: Icons.add,
+                            color: Theme.of(context).primaryColor,
+                            onTap: cartProduct.increment,
+                          ),
+                          Text(
+                            '${cartProduct.quantity}',
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          CustomIconButton(
+                            iconData: Icons.remove,
+                            color: cartProduct.quantity > 1
+                                ? Theme.of(context).primaryColor
+                                : Colors.red,
+                            onTap: cartProduct.decrement,
+                          ),
+                        ],
                       ),
                       Row(
                         children: [
@@ -101,8 +105,8 @@ class CartTile extends StatelessWidget {
                                 alignment: Alignment.topRight,
                                 child: IconButton(
                                   icon: Icon(Icons.delete),
-                                  color: Colors.red,
-                                  iconSize: 15,
+                                  color: Theme.of(context).primaryColor,
+                                  iconSize: 20,
                                   onPressed: () {},
                                 ),
                               )

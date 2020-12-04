@@ -93,6 +93,16 @@ class CartManager extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeItemCart(CartProduct cartProduct) {
+    // removendo do carrinho
+    items.removeWhere((p) => p.id == cartProduct.id);
+    // Removendo do firebase
+    user.cartReference.document(cartProduct.id).delete();
+    // fazendo com que o listener não atualize em produtos que já foram removidos do carrinho
+    cartProduct.removeListener(_onItemUpdated);
+    notifyListeners();
+  }
+
   bool get isCartValid {
     for (final cartProduct in items) {
       if (!cartProduct.hasStock) return false;
