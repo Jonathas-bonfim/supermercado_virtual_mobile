@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supermercado_virtual/models/product.dart';
 
 import 'components/images_form.dart';
+import 'components/sizes_form.dart';
 
 GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -77,6 +78,7 @@ class EditProductSreen extends StatelessWidget {
                       return null;
                     },
                   ),
+                  SizesForm(product),
                   RaisedButton(
                     onPressed: () {
                       // para validar se os campos estão vazios, não precisa implementar o formkey já é gerado pelo flutter
