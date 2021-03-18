@@ -21,6 +21,7 @@ class ImagesForm extends StatelessWidget {
         return null;
       },
 
+      onSaved: (images) => product.newImages = images,
       // para validar sempre que houver alguma modificação na imagem
       // autovalidate: true,
       initialValue: List.from(product.images),

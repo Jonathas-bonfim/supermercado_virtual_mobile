@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(builder: (_) => CartScreen());
               case '/edit_product':
                 return MaterialPageRoute(
-                    builder: (_) => EditProductSreen(
+                    builder: (_) => EditProductScreen(
                           // especificando qual objeto estamos passando por parâmetro, pois se tratando de argument pode ser qualquer coisa pois é do tipo
                           // dynamic, então estamos especificando que é um objeto do tipo Product
                           settings.arguments as Product,
